@@ -1,0 +1,22 @@
+hostname R1-EDGE
+no ip domain-lookup
+service dhcp
+ip dhcp excluded-address 10.0.0.1 10.0.0.99
+ip dhcp excluded-address 10.0.0.200 10.0.0.254
+ip dhcp pool LAN
+ network 10.0.0.0 255.255.255.0
+ default-router 10.0.0.1
+ dns-server 203.0.113.2
+ domain-name natlab.test
+exit
+interface GigabitEthernet0/0
+ description INSIDE_LAN_10.0.0.0_24
+ ip address 10.0.0.1 255.255.255.0
+ no shutdown
+exit
+interface GigabitEthernet0/1
+ description OUTSIDE_203.0.113.0_24
+ ip address 203.0.113.1 255.255.255.0
+ no shutdown
+exit
+end
